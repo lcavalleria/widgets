@@ -1,0 +1,12 @@
+(defwidget ram []
+	(graph
+		:width 50
+		:value {EWW_RAM.used_mem_perc}
+		:thickness 2.0
+		:time-range "30s"
+		:min 0
+		:max 100
+		:dynamic: false
+		:line-style: "miter"
+	)
+)

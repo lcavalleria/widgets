@@ -1,0 +1,22 @@
+(defpoll time	:interval "1s"
+		:initial "--:--:--"
+		`LC_TIME="ca_ES.UTF-8" date +%H:%M:%S`
+)
+(defpoll wDay	:interval "1s"
+		:initial "--------"
+		`LC_TIME="ca_ES.UTF-8" date +%A`
+)
+(defpoll date	:interval "1s"
+		:initial "--/--/----"
+		`LC_TIME="ca_ES.UTF-8" date +%x`
+)
+
+(defwidget clock []
+	(centerbox
+		:width 400
+		:orientation "horizontal"
+		wDay
+		time
+		date
+	)
+)

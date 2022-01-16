@@ -1,0 +1,16 @@
+(defwidget temp []
+	(box
+		:orientation "h"
+		:halign "end"
+		:space-evenly true
+		(label	:width 10
+			:wrap true
+			:text ""
+		)
+		(label	:width 20
+			:wrap true
+			:text "${EWW_TEMPS.CPU}"
+		)
+	)
+)
+

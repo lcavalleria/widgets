@@ -1,0 +1,11 @@
+; use the script ../scripts/bluetooth.sh
+
+(deflisten powered :initial false "./scripts/bluetooth.sh powered")
+(deflisten discoverable :initial false "./scripts/bluetooth.sh discoverable")
+
+(defwidget bluetooth []
+	(box	
+		(label :text "${discoverable ? '' : ''}")
+	)
+)
+

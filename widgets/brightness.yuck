@@ -1,0 +1,18 @@
+; use the rule /usr/lib/udev/rules.d/90-brightness.rule
+; which uses the script ../scripts/eww_update.sh
+
+(defvar brightness "0")
+(defwidget brightness []
+	(box	:width 80
+		:orientation "h"
+		:halign "end"
+		:spacing 5
+		:space-evenly false
+		(progress	:value "${brightness}"
+				:width 80
+				:valign "center"
+				:orientation "h"
+		)
+	)
+)
+

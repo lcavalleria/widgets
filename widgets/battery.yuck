@@ -1,0 +1,26 @@
+; use udev rules:
+; /usr/lib/udev/rules.d/95-power.rules
+
+; this is ugly: it should use udevadm monitor to set a deflisten
+; like that it wouldn't depend on some udev rule.
+(defvar batteryPresent true)
+(defvar batteryCharging false)
+
+(defwidget battery []
+	(box	:width 100
+		:orientation "h"
+		:halign "end"
+		:spacing 5
+		:space-evenly false
+		(progress	:value {EWW_BATTERY.BAT0.capacity}
+				:width 80
+				:valign "center"
+				:flipped true
+				:orientation "h"
+		)
+		(label	:width 20
+			:text "${batteryPresent && batteryCharging ? '' : !batteryPresent && batteryCharging ? '' : ''}"
+		)
+	)
+)
+
