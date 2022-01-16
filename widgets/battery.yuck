@@ -19,7 +19,7 @@
 				:orientation "h"
 		)
 		(label	:width 20
-			:text "${batteryPresent && batteryCharging ? '' : !batteryPresent && batteryCharging ? '' : ''}"
+			:text "${batteryPresent && batteryCharging ? '' : !batteryPresent && batteryCharging ? 'ﮣ' : ''}"
 		)
 	)
 )

@@ -5,7 +5,7 @@
 		:space-evenly true
 		(label	:width 10
 			:wrap true
-			:text ""
+			:text ""
 		)
 		(label	:width 20
 			:wrap true
