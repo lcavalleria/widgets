@@ -2,6 +2,7 @@
 # This script is not called automatically.
 # Called from /usr/lib/NetworkManager/dispatcher.d/99-user-scripts
 # See https://unix.stackexchange.com/a/538955
+# TODO: get rid of this dispatcher bullshit, use a watcher properly like the audio widget
 
 user=$(whoami)
 # necessary to call eww daemon
