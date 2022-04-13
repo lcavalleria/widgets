@@ -4,16 +4,19 @@
 (deflisten muted :initial false "./scripts/audio.sh muted")
 
 (defwidget audio []
-	(box	:width 80
+	(box	
+		:width 60
 		:style {muted ? 'muted':''}
 		:orientation "h"
 		:halign "end"
 		:spacing 5
 		:space-evenly false
-		(progress	:value {volume}
-				:width 80
-				:valign "center"
-				:orientation "h"
+		(progress	
+			:class "volume"
+			:value {volume}
+			:width 60
+			:valign "center"
+			:orientation "h"
 		)
 	)
 )

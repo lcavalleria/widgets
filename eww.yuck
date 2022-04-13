@@ -42,38 +42,50 @@
 )
 
 (defwidget bar []
-	(box	:space-evenly false
-		:spacing 20
-		:halign "end"
-		(box	:class "clock" 
+	(centerbox	
+		:class "bar"
+		:halign "fill"
+		(box
+			:space-evenly false
+			:class "tasks"
+		)
+		(box
 			(clock)
 		)
-		(box	:class "brightness"
-			(brightness)
-		)
-		(button	:class "audio"
-			:onclick "pavucontrol &"
-			(audio)
-		)
-		(button :class "bluetooth"
-			:onclick "blueman-manager &"
-			(bluetooth)
-		)
-		(button :class "network" 
-			:onclick "alacritty -e nmtui &"
-			(network)
-		)
-		(box	:class "cpu" 
-			(cpu)
-		)
-		(box	:class "ram" 
-			(ram)
-		)
-		(box	:class "temps" 
-			(temp)
-		)
-		(box	:class "battery" 
-			(battery)
+		(box
+			:space-evenly false
+			:spacing 20
+			:orientation "h"
+			:halign "end"
+			:class "system"
+			(box
+				(brightness)
+			)
+			(button
+				:onclick "pavucontrol &"
+				(audio)
+			)
+			(button
+				:class "bluetooth"
+				:onclick "blueman-manager &"
+				(bluetooth)
+			)
+			(button
+				:onclick "alacritty -e nmtui &"
+				(network)
+			)
+			(box
+				(cpu)
+			)
+			(box
+				(ram)
+			)
+			(box	
+				(temp)
+			)
+			(box
+				(battery)
+			)
 		)
 	)
 )

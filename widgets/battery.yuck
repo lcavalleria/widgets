@@ -7,16 +7,19 @@
 (defvar batteryCharging false)
 
 (defwidget battery []
-	(box	:width 100
+	(box	
+		:width 80
 		:orientation "h"
 		:halign "end"
 		:spacing 5
 		:space-evenly false
-		(progress	:value {EWW_BATTERY.BAT0.capacity}
-				:width 80
-				:valign "center"
-				:flipped true
-				:orientation "h"
+		(progress	
+			:value {EWW_BATTERY.BAT0.capacity}
+			:class "battery"
+			:width 80
+			:valign "center"
+			:flipped true
+			:orientation "h"
 		)
 		(label	:width 20
 			:text "${batteryPresent && batteryCharging ? '' : !batteryPresent && batteryCharging ? 'ﮣ' : ''}"

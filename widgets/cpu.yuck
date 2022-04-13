@@ -1,5 +1,6 @@
 (defwidget cpu []
 	(graph
+		:class "cpu"
 		:width 50
 		:value {EWW_CPU.avg}
 		:thickness 2.0

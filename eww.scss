@@ -1,0 +1,52 @@
+*{
+	all: unset;
+	font-family: MesloLGSNF;
+}
+
+.bar {
+	background-color: rgba(0.6, 0.6, 0.6, 0.8);
+	border: 2px solid;
+	border-color: #c64600;
+	margin: 4px 7px 0px 7px;
+	padding: 3px;
+}
+
+progressbar trough {
+	all: unset;
+	background-color: #601800;
+	border-radius: 5px;
+	min-height: 5px;
+	min-width: 20px;
+}
+
+progressbar trough progress {
+	all: unset;
+	min-height: 5px;
+	border-radius: 5px;
+}
+
+.bluetooth {
+	color: #5050c0;
+}
+
+.brightness trough progress {
+	background-color: #c0a030;
+}
+
+.volume trough progress {
+	background-color: #007070;
+
+}
+
+.battery trough progress {
+	background-color: #107020;
+
+}
+
+.cpu {
+	color: #a09090;
+}
+
+.ram {
+	color: #a020a0;
+}
