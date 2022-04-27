@@ -3,14 +3,6 @@
 	font-family: MesloLGSNF;
 }
 
-.bar {
-	background-color: rgba(0.6, 0.6, 0.6, 0.8);
-	border: 2px solid;
-	border-color: #c64600;
-	margin: 4px 7px 0px 7px;
-	padding: 3px;
-}
-
 progressbar trough {
 	all: unset;
 	background-color: #601800;
@@ -25,8 +17,29 @@ progressbar trough progress {
 	border-radius: 5px;
 }
 
-.bluetooth {
-	color: #5050c0;
+.bar {
+	background-color: rgba(0, 0, 0, 0.7);
+	border: 2px solid;
+	border-color: #c64600;
+	margin: 4px 7px 0px 7px;
+	padding: 3px;
+}
+
+.tasks{
+}
+
+.task {
+	background-color: rgba(150, 150, 150, 0.4);
+	border: 2px solid;
+	border-radius: 5px;
+	border-color: #601800;
+}
+
+.taskfocused {
+	background-color: rgba(150, 150, 150, 0.4);
+	border: 2px solid;
+	border-radius: 5px;
+	border-color: #c64600;
 }
 
 .brightness trough progress {
@@ -34,8 +47,19 @@ progressbar trough progress {
 }
 
 .volume trough progress {
-	background-color: #007070;
+	background-color: #0090a0;
+}
 
+.muted trough {
+	background-color: #404040;
+}
+
+.bluetooth {
+	color: #5050c0;
+}
+
+.network {
+	min-width: 200px;
 }
 
 .battery trough progress {

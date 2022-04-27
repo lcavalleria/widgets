@@ -6,12 +6,20 @@
 (defvar networkDevice "")
 
 (defwidget network []
-	(box	:class "network"
-		:orientation "h"
-		:space-evenly false
-		:spacing 10
-		:halign "center"
-		{networkDevice == "wlan0" ? '' : networkDevice == "eth0" || networkDevice == "eth1" ? '﴿' : ''}
-		{networkName ?: "Checking..."}
+	(box	
+		:class "network"
+		(box
+			:space-evenly false
+			:spacing 10
+			:halign "center"
+			(label
+				:limit-width 1
+				:text {networkDevice == "wlan0" ? '' : networkDevice == "eth0" || networkDevice == "eth1" ? '﴿' : ''}
+			)
+			(label
+				:limit-width 15
+				:text {networkName ?: "Checking..."}
+			)
+		)
 	)
 )
