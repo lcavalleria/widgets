@@ -1,9 +1,0 @@
-; use the python script taskbar_yuck.py to generate literal.
-
-(deflisten tasks :initial "loading" 
-	`python ./scripts/taskbar_yuck.py`)
-
-(defwidget tasks []
-	(literal :content tasks)
-)
-

@@ -7,7 +7,7 @@
 		:time-range "30s"
 		:min 0
 		:max 100
-		:dynamic: false
-		:line-style: "miter"
+		:dynamic false
+		:line-style "miter"
 	)
 )

@@ -1,0 +1,2 @@
+# Put this at the bottom of your backlight rules. 
+ACTION=="change", SUBSYSTEM=="backlight", RUN+="/usr/lib/udev/run-users-script .config/eww/scripts/update_brightness.sh"

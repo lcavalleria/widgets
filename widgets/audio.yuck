@@ -1,7 +1,7 @@
 ; use the script ../scripts/audio.sh
 
-(deflisten volume :initial "0" "./scripts/audio.sh volume")
-(deflisten muted :initial false "./scripts/audio.sh muted")
+(defvar volume "0")
+(defvar muted "false")
 
 (defwidget audio []
 	(box	
@@ -11,7 +11,7 @@
 		:spacing 5
 		:space-evenly false
 		(progress	
-			:class "${muted ? 'muted' : 'volume'}"
+			:class "${muted == "true" ? 'muted' : 'volume'}"
 			:value {volume}
 			:width 60
 			:valign "center"

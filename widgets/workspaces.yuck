@@ -1,0 +1,8 @@
+; use the python script hypr_workspaces_yuck.py to generate literal.
+
+(deflisten workspaces :initial "(box :class 'workspaces' :halign 'start' :spacing 15)" `python ./scripts/hypr_workspaces_yuck.py`)
+
+(defwidget workspaces []
+	(literal :content workspaces)
+)
+

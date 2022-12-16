@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+#   Attempt to run a script enetered by arg for all logged in users.
+#   Scripts path starts in /home/$user/
+#   This script is called from a udev rule.
+#   $1 -- script to execute. It needs to be executable.
+#
+##########
+
+for user in $(who | awk '{print $1}' | sort | uniq); do
+  script="/home/${user}/$1"
+  if [ -f "$script" ]; then
+    echo $script | xargs -I{} sudo -u $user --set-home --preserve-env -- {} "$2" "$3"
+  fi
+done

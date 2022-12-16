@@ -7,7 +7,7 @@
 (include "./widgets/audio.yuck")
 (include "./widgets/brightness.yuck")
 (include "./widgets/bluetooth.yuck")
-(include "./widgets/tasks.yuck")
+(include "./widgets/workspaces.yuck")
 
 (defwindow bar0
 	:monitor 0
@@ -48,9 +48,9 @@
 		:halign "fill"
 		(box
 			:space-evenly false
-			:class "tasks"
+			:class "workspaces"
 			:orientation "h"
-			(tasks)
+			(workspaces)
 		)
 		(box
 			(clock)
