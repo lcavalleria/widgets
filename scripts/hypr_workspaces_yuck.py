@@ -49,10 +49,9 @@ for line in process.stdout:
         applyWorkspace(workspace_id)
         needs_render = True
     elif (event == "createworkspace"):
-        workspaces[workspace_id] = Workspace(workspace_id)
+        applyWorkspace(workspace_id)
     elif (event == "destroyworkspace"):
         needs_render = True
-        topop = workspace_id + 1
         workspaces.pop(int(workspace_id) + 1)
     if (needs_render):
         renderWorkspace()
