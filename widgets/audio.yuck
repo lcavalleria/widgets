@@ -5,7 +5,7 @@
 
 (defwidget audio []
 	(box	
-		:width 60
+		:width 40
 		:orientation "h"
 		:halign "end"
 		:spacing 5
@@ -13,7 +13,7 @@
 		(progress	
 			:class "${muted == "true" ? 'muted' : 'volume'}"
 			:value {volume}
-			:width 60
+			:width 40
 			:valign "center"
 			:orientation "h"
 		)

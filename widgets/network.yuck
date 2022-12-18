@@ -1,9 +1,14 @@
-; use NetworkManager dispatcher scripts:
-; /usr/lib/NetworkManager/dispatcher.d/99-user-scripts
-; scripts/network_update.sh
+; Use the script network_monitor.py to get text and icon
 
-(defvar networkName "")
-(defvar networkDevice "")
+
+(deflisten networkName 
+	:initial "Initializing" 
+	`python ./scripts/network_monitor.py text`
+)
+(deflisten networkIcon 
+	:initial ""
+	`python ./scripts/network_monitor.py icon`
+)
 
 (defwidget network []
 	(box	
@@ -14,11 +19,11 @@
 			:halign "center"
 			(label
 				:limit-width 1
-				:text {networkDevice == "wlan0" ? '' : networkDevice == "eth0" || networkDevice == "eth1" ? '﴿' : ''}
+				:text {networkIcon}
 			)
 			(label
 				:limit-width 15
-				:text {networkName ?: "Checking..."}
+				:text {networkName}
 			)
 		)
 	)

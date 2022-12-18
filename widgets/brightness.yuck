@@ -4,7 +4,7 @@
 (defvar brightness "0")
 (defwidget brightness []
 	(box	
-		:width 60
+		:width 40
 		:orientation "h"
 		:halign "end"
 		:spacing 5
@@ -12,7 +12,7 @@
 		(progress	
 			:class "brightness"
 			:value "${brightness}"
-			:width 60
+			:width 40
 			:valign "center"
 			:orientation "h"
 		)

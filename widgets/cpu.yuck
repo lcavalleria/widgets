@@ -1,9 +1,9 @@
 (defwidget cpu []
 	(graph
 		:class "cpu"
-		:width 50
+		:width 30
 		:value {EWW_CPU.avg}
-		:thickness 2.0
+		:thickness 3.0
 		:time-range "30s"
 		:min 0
 		:max 100

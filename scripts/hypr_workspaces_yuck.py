@@ -15,14 +15,16 @@ class Workspace:
             css_class = "workspacefocused"
         else:
             css_class = "workspace"
-        return("(box :class '{css_class}' :width 26 :halign 'center' (label :limit-width 1 :show-truncated false :text '{workspace_id}'))".format(css_class=css_class, workspace_id=self.workspace_id))
+        if (self.workspace_id == 11): self.workspace_id = 1
+        return("(box :class '{css_class}' :width 26 :halign 'center' (label :limit-width 1 :show-truncated false :text '{workspace_id}'))".format(css_class=css_class, workspace_id=str(self.workspace_id - 1)))
 
 
 workspaces = dict()
 his = os.environ["HYPRLAND_INSTANCE_SIGNATURE"]
 
-initialWorkspaceId = subprocess.run(['hyprctl', 'workspaces'], stdout=subprocess.PIPE,universal_newlines=True).stdout.split('\n', 1)[0].split(' ')[2]
-workspaces[initialWorkspaceId] = Workspace(initialWorkspaceId)
+def applyWorkspace(workspace_id):
+    workspace_id = int(workspace_id) + 1
+    workspaces[workspace_id] = Workspace(workspace_id, True)
 
 def renderWorkspace():
         yuck = "(box :class 'workspaces' :halign 'start' :spacing 15"
@@ -31,6 +33,9 @@ def renderWorkspace():
             yuck += id_workspace[1].make_widget()
         yuck += ")"
         print(yuck, flush=True)
+initialWorkspaceId = subprocess.run(['hyprctl', 'workspaces'], stdout=subprocess.PIPE,universal_newlines=True).stdout.split('\n', 1)[0].split(' ')[2]
+applyWorkspace(initialWorkspaceId)
+
 
 process = subprocess.Popen(["socat", "-", "UNIX-CONNECT:/tmp/hypr/{his}/.socket2.sock".format(his=his)], universal_newlines=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 for line in process.stdout:
@@ -41,13 +46,14 @@ for line in process.stdout:
     needs_render = False
     if (event == "workspace"):
         for workspace in workspaces.values(): workspace.focused = False
-        workspaces[workspace_id] = Workspace(workspace_id, True)
+        applyWorkspace(workspace_id)
         needs_render = True
     elif (event == "createworkspace"):
         workspaces[workspace_id] = Workspace(workspace_id)
     elif (event == "destroyworkspace"):
         needs_render = True
-        workspaces.pop(workspace_id)
+        topop = workspace_id + 1
+        workspaces.pop(int(workspace_id) + 1)
     if (needs_render):
         renderWorkspace()
 

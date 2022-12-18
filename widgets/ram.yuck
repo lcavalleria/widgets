@@ -1,9 +1,9 @@
 (defwidget ram []
 	(graph
 		:class "ram"
-		:width 50
+		:width 30
 		:value {EWW_RAM.used_mem_perc}
-		:thickness 2.0
+		:thickness 3.0
 		:time-range "30s"
 		:min 0
 		:max 100

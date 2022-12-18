@@ -8,6 +8,8 @@
 (include "./widgets/brightness.yuck")
 (include "./widgets/bluetooth.yuck")
 (include "./widgets/workspaces.yuck")
+(include "./widgets/netup.yuck")
+(include "./widgets/netdown.yuck")
 
 (defwindow bar0
 	:monitor 0
@@ -76,6 +78,12 @@
 			(button
 				:onclick "alacritty -e nmtui &"
 				(network)
+			)
+			(box
+				(netup)
+			)
+			(box
+				(netdown)
 			)
 			(box
 				(cpu)
