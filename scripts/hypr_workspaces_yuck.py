@@ -21,13 +21,23 @@ class Workspace:
 workspaces = dict()
 his = os.environ["HYPRLAND_INSTANCE_SIGNATURE"]
 
+initialWorkspaceId = subprocess.run(['hyprctl', 'workspaces'], stdout=subprocess.PIPE,universal_newlines=True).stdout.split('\n', 1)[0].split(' ')[2]
+workspaces[initialWorkspaceId] = Workspace(initialWorkspaceId)
+
+def renderWorkspace():
+        yuck = "(box :class 'workspaces' :halign 'start' :spacing 15"
+        sortedWorkspaces = sorted(list(workspaces.items()))
+        for id_workspace in sortedWorkspaces:
+            yuck += id_workspace[1].make_widget()
+        yuck += ")"
+        print(yuck, flush=True)
+
 process = subprocess.Popen(["socat", "-", "UNIX-CONNECT:/tmp/hypr/{his}/.socket2.sock".format(his=his)], universal_newlines=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 for line in process.stdout:
-    if not line:break
+    if not line: break
     e = line.split(">>")
     event = e[0]
     workspace_id = e[1].strip('\n')
-    if workspace_id == "10": workspace_id = "0"
     needs_render = False
     if (event == "workspace"):
         for workspace in workspaces.values(): workspace.focused = False
@@ -39,10 +49,5 @@ for line in process.stdout:
         needs_render = True
         workspaces.pop(workspace_id)
     if (needs_render):
-        yuck = "(box :class 'workspaces' :halign 'start' :spacing 15"
-        sortedWorkspaces = sorted(list(workspaces.items()))
-        for id_workspace in sortedWorkspaces:
-            yuck += id_workspace[1].make_widget()
-        yuck += ")"
-        print(yuck, flush=True)
+        renderWorkspace()
 
