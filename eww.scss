@@ -1,11 +1,15 @@
-*{
+* {
 	all: unset;
-	font-family: MesloLGSNF;
+}
+
+.time {
+	font-weight: bold;
+	font-size: 18px;
 }
 
 progressbar trough {
 	all: unset;
-	background-color: #151038;
+	background-color: #100018;
 	border-radius: 5px;
 	min-height: 5px;
 	min-width: 20px;
@@ -18,7 +22,9 @@ progressbar trough progress {
 }
 
 .bar {
-	background-color: rgba(0, 0, 0, 0.7);
+	font-family: "MesloLGSNF";
+	background-color: rgba(21, 21, 21, 0.8);
+	color: #eeeeee;
 	border: 2px solid;
 	border-color: #6010c8;
 	border-radius: 10px;
@@ -30,15 +36,15 @@ progressbar trough progress {
 }
 
 .workspace {
-	background-color: rgba(20, 10, 40, 0.4);
+	background-color: rgba(10, 10, 18, 1);
 	border: 2px solid;
 	border-radius: 5px;
 	border-color: #151038;
 }
 
 .workspacefocused {
-	background-color: rgba(40, 20, 100, 0.4);
-	border: 2px solid;
+	background-color: rgba(10, 10, 18, 1);
+	border: 1px solid;
 	border-radius: 5px;
 	border-color: #6010c8;
 }
@@ -65,7 +71,6 @@ progressbar trough progress {
 
 .battery trough progress {
 	background-color: #107020;
-
 }
 
 .netup {

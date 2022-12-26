@@ -15,8 +15,15 @@
 	(centerbox
 		:width 400
 		:orientation "horizontal"
-		wDay
-		time
-		date
+		(box
+			wDay
+		)
+		(box
+			:class "time"
+			time
+		)
+		(box
+			date
+		)
 	)
 )

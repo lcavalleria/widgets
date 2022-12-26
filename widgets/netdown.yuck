@@ -2,7 +2,7 @@
 	(graph
 		:class "netdown"
 		:width 30
-		:value {EWW_NET.wlan0.NET_DOWN + EWW_NET.eth0.NET_DOWN + EWW_NET.eth1.NET_DOWN}
+		:value {(EWW_NET.wlan0.NET_DOWN + EWW_NET.eth0.NET_DOWN + EWW_NET.eth1.NET_DOWN) / 1000000000}
 		:thickness 3.0
 		:time-range "30s"
 		:min 0

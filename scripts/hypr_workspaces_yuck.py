@@ -16,7 +16,7 @@ class Workspace:
         else:
             css_class = "workspace"
         if (self.workspace_id == 11): self.workspace_id = 1
-        return("(box :class '{css_class}' :width 26 :halign 'center' (label :limit-width 1 :show-truncated false :text '{workspace_id}'))".format(css_class=css_class, workspace_id=str(self.workspace_id - 1)))
+        return("(box :class '{css_class}' :width 38 :height 25 :halign 'center' :valign 'center' (label :limit-width 1 :show-truncated false :text '{workspace_id}'))".format(css_class=css_class, workspace_id=str(self.workspace_id - 1)))
 
 
 workspaces = dict()
@@ -27,12 +27,13 @@ def applyWorkspace(workspace_id):
     workspaces[workspace_id] = Workspace(workspace_id, True)
 
 def renderWorkspace():
-        yuck = "(box :class 'workspaces' :halign 'start' :spacing 15"
-        sortedWorkspaces = sorted(list(workspaces.items()))
-        for id_workspace in sortedWorkspaces:
-            yuck += id_workspace[1].make_widget()
-        yuck += ")"
-        print(yuck, flush=True)
+    yuck = "(box :class 'workspaces' :halign 'start' :valign 'center' :spacing 10"
+    sortedWorkspaces = sorted(list(workspaces.items()))
+    for id_workspace in sortedWorkspaces:
+        yuck += id_workspace[1].make_widget()
+    yuck += ")"
+    print(yuck, flush=True)
+
 initialWorkspaceId = subprocess.run(['hyprctl', 'workspaces'], stdout=subprocess.PIPE,universal_newlines=True).stdout.split('\n', 1)[0].split(' ')[2]
 applyWorkspace(initialWorkspaceId)
 
