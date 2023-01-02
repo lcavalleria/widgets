@@ -18,6 +18,7 @@ progressbar trough {
 progressbar trough progress {
 	all: unset;
 	min-height: 5px;
+	min-width: 5px;
 	border-radius: 5px;
 }
 
@@ -69,16 +70,22 @@ progressbar trough progress {
 	min-width: 200px;
 }
 
+.battery trough {
+	all: unset;
+	min-height: 25px;
+	min-width: 5px;
+}
+
 .battery trough progress {
 	background-color: #107020;
 }
 
 .netup {
-	color: #40d040;
+	color: #d04040;
 }
 
 .netdown {
-	color: #d04040;
+	color: #40d040;
 }
 
 .cpu {

@@ -2,10 +2,11 @@
 	(graph
 		:class "netup"
 		:width 30
-		:value {(EWW_NET.wlan0.NET_UP + EWW_NET.eth0.NET_UP + EWW_NET.eth1.NET_UP) / 1000000000}
+		:value {(EWW_NET.wlan0.NET_UP + EWW_NET.eth0.NET_UP + EWW_NET.eth1.NET_UP) / 10000000}
 		:thickness 3.0
 		:time-range "30s"
 		:min 0
+		:max 100
 		:dynamic true
 		:line-style "miter"
 	)

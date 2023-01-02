@@ -80,10 +80,10 @@
 				(network)
 			)
 			(box
-				(netup)
+				(netdown)
 			)
 			(box
-				(netdown)
+				(netup)
 			)
 			(box
 				(cpu)

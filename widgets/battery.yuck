@@ -1,6 +1,6 @@
 (defwidget battery []
 	(box	
-		:width 50
+		:width 35
 		:orientation "h"
 		:halign "end"
 		:spacing 5
@@ -8,13 +8,12 @@
 		(progress	
 			:value {EWW_BATTERY.BAT0.capacity}
 			:class "battery"
-			:width 50
 			:valign "center"
 			:flipped true
-			:orientation "h"
+			:orientation "v"
 		)
 		(label	:width 20
-			:text "${EWW_BATTERY.BAT0.status == "Charging" ? 'ﮣ' : ''}"
+			:text "${EWW_BATTERY.BAT0.status == "Discharging" ? EWW_BATTERY.BAT0.capacity : EWW_BATTERY.BAT0.status == "Charging" ? '' : '' }"
 		)
 	)
 )
