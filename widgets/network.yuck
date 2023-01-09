@@ -1,13 +1,9 @@
-; Use the script network_monitor.py to get text and icon
+; Use the script network_monitor.py to get json of text and icon
 
 
-(deflisten networkName 
-	:initial "Initializing" 
-	`python ./scripts/network_monitor.py text`
-)
-(deflisten networkIcon 
-	:initial ""
-	`python ./scripts/network_monitor.py icon`
+(deflisten networkInfo 
+	:initial '{"icon":"","text":"Initializing"}' 
+	`python ./scripts/network_monitor.py `
 )
 
 (defwidget network []
@@ -19,11 +15,11 @@
 			:halign "center"
 			(label
 				:limit-width 1
-				:text {networkIcon}
+				:text {networkInfo.icon}
 			)
 			(label
 				:limit-width 15
-				:text {networkName}
+				:text {networkInfo.text}
 			)
 		)
 	)

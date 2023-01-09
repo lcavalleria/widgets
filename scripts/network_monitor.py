@@ -4,6 +4,10 @@ import subprocess
 import sys
 
 process = subprocess.Popen(["nmcli", "device", "monitor"], universal_newlines=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+wlan_prev_icon = ""
+wlan_prev_text = ""
+
 for line in process.stdout:
     if not line: break
     e = line.split(":")
@@ -32,14 +36,24 @@ for line in process.stdout:
         else:
             icon = ""
             display_text = "WTF wlan0"
-    else:
-        icon = "﴿"
-        display_text = "Ethernet"
+        wlan_prev_icon = icon
+        wlan_prev_text = display_text
+    elif (device == "eth1"):
+        if (state.startswith("disconnected")):
+            icon = ""
+            display_text = "[[Ethernet]]"
+        elif (state.startswith("connected")):
+            icon = "﴿"
+            display_text = "Ethernet"
+        elif (state.startswith("using") or state.startswith("connecting")):
+            icon = "﴿"
+            display_text = "Connecting"
+        elif (state.startswith("unavailable")):
+            icon = wlan_prev_icon
+            display_text = wlan_prev_text
+        else:
+            icon = ""
+            display_text = "WTF eth1"
 
-    arg = sys.argv[1]
-    if (arg == "icon"):
-        print(icon, flush=True)
-    elif (arg == "text"):
-        print(display_text, flush=True)
-    else:
-        print("Fix the arg!", flush=True)
+    print("{\"icon\":\"" + icon + "\",\"text\":\"" + display_text +"\"}", flush=True)
+
