@@ -4,7 +4,7 @@
 
 IFS=$'\n'
 mapfile -t displays_arr < <(wlrctl output list)
-main_display=$(printf '%s\n' \"${displays_arr[@]}\" | grep -n "$MAIN_MONITOR_NAME" | cut -c 1)
+main_display=$(printf '%s\n' "${displays_arr[@]}" | grep -n "$MAIN_MONITOR_NAME" | cut -c 1)
 eww close bar0
 eww close bar1
 eww close bar2
