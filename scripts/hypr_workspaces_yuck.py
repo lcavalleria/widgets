@@ -43,9 +43,12 @@ for line in process.stdout:
     if not line: break
     e = line.split(">>")
     event = e[0]
-    workspace_id = e[1].strip('\n')
     needs_render = False
-    if (event == "workspace"):
+    if (event == "focusedmon"):
+        workspace_id = e[1].strip('\n').split(',')[1]
+    else:
+        workspace_id = e[1].strip('\n')
+    if (event == "workspace" or event == "focusedmon"):
         for workspace in workspaces.values(): workspace.focused = False
         applyWorkspace(workspace_id)
         needs_render = True
