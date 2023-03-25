@@ -1,20 +1,39 @@
 # To be used as deflisten network widget.
 
 import subprocess
+import datetime
 import sys
 
 
 wlan_prev_icon = ""
 wlan_prev_text = ""
 
+debugging = False
+
+def debug(msg):
+    if debugging == True:
+        with open("/var/log/debug", "a") as debugfile:
+            debugfile.write("[" + str(datetime.datetime.now()) + "] - network_monitor.py: " + msg + "\n")
+
 def print_nmcli_to_eww(process):
     for line in process.stdout:
-        if not line: break
+        debug("reading line 1")
+        if not line:
+            debug("NOT LINE, BREAKING")
+            break
+        debug("didnt break 2")
         e = line.split(":")
+        debug("didnt break 3")
         device = e[0]
+        debug("didnt break 4")
         state = e[1].strip(' ').strip('\n')
+        debug("didnt break 5")
+
+        icon = ""
+        display_text = "Initializing"
 
         if (device == "wlan0"):
+            debug("device is wlan0")
             if (state.startswith("unavailable")):
                 icon = ""
                 display_text = "Disabled"
@@ -41,6 +60,7 @@ def print_nmcli_to_eww(process):
             wlan_prev_icon = icon
             wlan_prev_text = display_text
         elif (device == "eth1"):
+            debug("device is wlan0")
             if (state.startswith("disconnected")):
                 icon = ""
                 display_text = "[[Ethernet]]"
@@ -57,7 +77,13 @@ def print_nmcli_to_eww(process):
                 icon = ""
                 display_text = "WTF eth1"
 
-        print("{\"icon\":\"" + icon + "\",\"text\":\"" + display_text +"\"}", flush=True)
+        debug("didnt break 6")
+
+        output = "{\"icon\":\"" + icon + "\",\"text\":\"" + display_text +"\"}"
+
+        debug("didnt break 7")
+        debug("printing: " + output)
+        print(output, flush=True)
 
 
 
