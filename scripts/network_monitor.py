@@ -4,97 +4,129 @@ import subprocess
 import datetime
 import sys
 
-
-wlan_prev_icon = ""
-wlan_prev_text = ""
-
 debugging = False
+
 
 def debug(msg):
     if debugging == True:
         with open("/var/log/debug", "a") as debugfile:
             debugfile.write("[" + str(datetime.datetime.now()) + "] - network_monitor.py: " + msg + "\n")
 
-def print_nmcli_to_eww(process):
+
+def generate_output(icon, display_text):
+    debug("generate eth output string")
+    output = "{\"icon\":\"" + icon + "\",\"text\":\"" + display_text +"\"}"
+    debug("output string (eth): " + output)
+    return output
+
+
+def wlan_outputs(state):
+    if (state.startswith("unavailable")):
+        icon = ""
+        display_text = "Disabled"
+        connection_name = ""
+    elif (state.startswith("disconnected")):
+        icon = "睊"
+        display_text = "Disconnected"
+        connection_name = ""
+    elif (state.startswith("using")):
+        connection_name = state.split('\'', 1)[1][:-1]
+        icon = "直"
+        display_text = "[[{name}]]".format(name=connection_name)
+    elif (state.startswith("connecting")):
+        icon = "直"
+        display_text = "[[{name}]]".format(name=connection_name)
+    elif (state.startswith("connected")):
+        if (len(e) == 3): # running "nmcli device status", not monitor
+            connection_name=e[2].strip('\n')
+        icon = "直"
+        display_text = connection_name
+    else:
+        icon = ""
+        display_text = "WTF wlan0"
+    return icon, display_text
+
+def eth_outputs(state):
+    icon = "﴿"
+    if (state.startswith("connected")):
+        debug("ethX is connected")
+        display_text = "Ethernet"
+    elif (state.startswith("disconnected")):
+        debug("ethX is disconnected")
+        display_text = "Disconnected"
+    elif (state.startswith("using") or state.startswith("connecting")):
+        debug("ethX is connecting")
+        display_text = "Connecting"
+    elif (state.startswith("unavailable")):
+        debug("ethX is unavailable.")
+        display_text = "Disabled"
+    else:
+        debug(f"something strange. device: {device}, state: {state}")
+        icon = ""
+        display_text = "WTF eth1"
+    return icon, display_text
+
+
+def process_line(line):
+    e = line.split(":")
+    debug("event info: " + str(e))
+    device = e[0]
+    debug("device: " + str(device))
+    state = e[1].strip(' ').strip('\n')
+    debug("state: " + str(state))
+
+
+
+    if (device == "wlan0"):
+        debug("device is wlan0")
+        icon, display_text = wlan_outputs(state)
+    elif (device.startswith("eth")):
+        debug("device is: " + device + " (starts with \"eth\")")
+        icon, display_text = eth_outputs(state)
+    else:
+        return None
+    return icon, display_text
+
+def print_nmcli_status_to_eww(process):
+    events = []
     for line in process.stdout:
-        debug("reading line 1")
+        debug("reading line")
         if not line:
-            debug("NOT LINE, BREAKING")
+            debug("NO LINE, BREAKING")
             break
-        debug("didnt break 2")
-        e = line.split(":")
-        debug("didnt break 3")
-        device = e[0]
-        debug("didnt break 4")
-        state = e[1].strip(' ').strip('\n')
-        debug("didnt break 5")
+        ic_txt = process_line(line)
+        if ic_txt is not None:
+            events.append(ic_txt)
+    output = None
+    for event in events:
+        if event[1] == "Ethernet":
+            output = generate_output(event[0], event[1])
+    if output is None:
+        output = generate_output(events[0][0], events[0][1])
 
-        icon = ""
-        display_text = "Initializing"
+    print(output, flush=True)
 
-        if (device == "wlan0"):
-            debug("device is wlan0")
-            if (state.startswith("unavailable")):
-                icon = ""
-                display_text = "Disabled"
-                connection_name = ""
-            elif (state.startswith("disconnected")):
-                icon = "睊"
-                display_text = "Disconnected"
-                connection_name = ""
-            elif (state.startswith("using")):
-                connection_name = state.split('\'', 1)[1][:-1]
-                icon = "直"
-                display_text = "[[{name}]]".format(name=connection_name)
-            elif (state.startswith("connecting")):
-                icon = "直"
-                display_text = "[[{name}]]".format(name=connection_name)
-            elif (state.startswith("connected")):
-                if (len(e) == 3): # running "nmcli device status", not monitor
-                    connection_name=e[2].strip('\n')
-                icon = "直"
-                display_text = connection_name
-            else:
-                icon = ""
-                display_text = "WTF wlan0"
-            wlan_prev_icon = icon
-            wlan_prev_text = display_text
-        elif (device == "eth1"):
-            debug("device is wlan0")
-            if (state.startswith("disconnected")):
-                icon = ""
-                display_text = "[[Ethernet]]"
-            elif (state.startswith("connected")):
-                icon = "﴿"
-                display_text = "Ethernet"
-            elif (state.startswith("using") or state.startswith("connecting")):
-                icon = "﴿"
-                display_text = "Connecting"
-            elif (state.startswith("unavailable")):
-                icon = wlan_prev_icon
-                display_text = wlan_prev_text
-            else:
-                icon = ""
-                display_text = "WTF eth1"
-
-        debug("didnt break 6")
-
-        output = "{\"icon\":\"" + icon + "\",\"text\":\"" + display_text +"\"}"
-
-        debug("didnt break 7")
-        debug("printing: " + output)
-        print(output, flush=True)
+def print_nmcli_events_to_eww(process):
+    for line in process.stdout:
+        debug("reading line")
+        if not line:
+            debug("NO LINE, BREAKING")
+            break
+        ic_txt = process_line(line)
+        if ic_txt is not None:
+            output = generate_output(ic_txt[0], ic_txt[1])
+            print(output, flush=True)
 
 
 
 # do a first run when script start
 process = subprocess.Popen(["nmcli", "-g", "device, state, connection", "device", "status"], universal_newlines=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-print_nmcli_to_eww(process)
+print_nmcli_status_to_eww(process)
 
 
 # and start processing nmcli monitor outputs
 process = subprocess.Popen(["nmcli", "device", "monitor"], universal_newlines=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-print_nmcli_to_eww(process)
+print_nmcli_events_to_eww(process)
 
