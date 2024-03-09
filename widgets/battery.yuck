@@ -13,7 +13,7 @@
 			:orientation "v"
 		)
 		(label	:width 20
-			:text "${EWW_BATTERY.BAT0.status == "Discharging" ? EWW_BATTERY.BAT0.capacity : EWW_BATTERY.BAT0.status == "Charging" ? '' : '' }"
+			:text "${EWW_BATTERY.BAT0.status == "Discharging" ? EWW_BATTERY.BAT0.capacity : EWW_BATTERY.BAT0.status == "Charging" ? '󰢜' : '󰚥' }"
 		)
 	)
 )
