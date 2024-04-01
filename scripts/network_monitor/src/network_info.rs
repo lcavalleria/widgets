@@ -61,11 +61,12 @@ impl NetworkInfo {
             ("eth1", "connected") => self.eth_status = EthStatus::Connected,
             ("eth1", "unavailable") => self.eth_status = EthStatus::Disconnected,
             ("wlan0", "using") => {
-                let connection_name = *status
+                let connection_name = status
                     .split(' ')
                     .collect::<Vec<&str>>()
                     .get(2)
-                    .unwrap_or(&"Error");
+                    .unwrap_or(&"Error")
+                    .trim_matches('\'');
 
                 self.wlan_name = Some(connection_name.to_string());
             }
