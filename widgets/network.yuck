@@ -3,7 +3,7 @@
 
 (deflisten networkInfo 
 	:initial '{"icon":"","text":"Initializing"}' 
-	`python ./scripts/network_monitor.py `
+	`./scripts/network_monitor/target/debug/network_monitor`
 )
 
 (defwidget network []

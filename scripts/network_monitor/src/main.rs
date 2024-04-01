@@ -1,17 +1,27 @@
+mod network_info;
 mod nmcli_cmds;
+mod output_msg;
+mod status_icons;
+
+use network_info::NetworkInfo;
 use nmcli_cmds::Nmcli;
 
 fn main() {
-    let nmcli: Nmcli = Nmcli {};
-
     // Print initial output
-    nmcli
-        .continuous_output
-        .split(' ')
-        .for_each(|line| println!("{line}"));
+    let mut status = NetworkInfo::create();
+    Nmcli::initial_string()
+        .split('\n')
+        .filter(|line| !line.is_empty())
+        .for_each(|line| status.update_from_initial_line(line));
+    let output_msg = status.format_output_msg();
+    println!("{}", output_msg.format());
 
-    match nmcli.continuous_output {
-        Ok(c_o) => c_o.for_each(|s| println!("{}", s)),
+    match Nmcli::continuous_output() {
+        Ok(c_o) => c_o.for_each(|line| {
+            status.update_from_monitor_line(line);
+            let output_msg = status.format_output_msg();
+            println!("{}", output_msg.format());
+        }),
         Err(e) => println!("Error! {}", e),
     }
 }

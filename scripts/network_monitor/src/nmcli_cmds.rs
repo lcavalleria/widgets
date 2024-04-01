@@ -14,8 +14,7 @@ impl Nmcli {
         String::from_utf8(initial_output).expect("Error casting buff to str")
     }
 
-    pub fn continuous_output() -> Result<Iterator<jaja xd>, Error> { // TODO: no em deixa retornar un iter.
-        // Investigar
+    pub fn continuous_output() -> Result<impl Iterator<Item = String>, Error> {
         let continuous_stdout = Command::new("nmcli")
             .args(["device", "monitor"])
             .stdout(Stdio::piped())
