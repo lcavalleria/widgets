@@ -9,9 +9,9 @@ eww close bar0
 eww close bar1
 eww close bar2
 if [ ${#displays_arr[@]} -gt 1 ]; then
-	if [ $main_display -eq 3 ]; then
+	if [[ $main_display -eq 3 ]]; then
 		eww open bar2
-	elif [ $main_display -eq 2 ]; then
+	elif [[ $main_display -eq 2 ]]; then
 		eww open bar1
 	else
 		eww open bar0
