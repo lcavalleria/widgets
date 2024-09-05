@@ -1,3 +1,4 @@
+#!/bin/python3
 # Generate a yuck string with the contents of hyprland workspaces.
 # To be used as deflisten literal in the workspaces widget.
 # requires socat
