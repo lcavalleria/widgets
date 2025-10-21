@@ -4,6 +4,7 @@
 (include "./widgets/cpu.yuck")
 (include "./widgets/ram.yuck")
 (include "./widgets/temp.yuck")
+(include "./widgets/locale.yuck")
 (include "./widgets/audio.yuck")
 (include "./widgets/brightness.yuck")
 (include "./widgets/bluetooth.yuck")
@@ -59,7 +60,7 @@
 		)
 		(box
 			:space-evenly false
-			:spacing 20
+			:spacing 15
 			:orientation "h"
 			:halign "end"
 			:class "system"
@@ -79,6 +80,9 @@
 				:onclick "alacritty -e nmtui &"
 				(network)
 			)
+      (box
+        (locale)
+      )
 			(box
 				(netdown)
 			)

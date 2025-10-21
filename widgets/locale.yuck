@@ -1,0 +1,15 @@
+(deflisten current_locale :initial "--" "hyprctl devices -j | jq -r '.keyboards[0].layout'")
+
+(defwidget locale []
+	(box
+    :class "locale"
+		:orientation "h"
+		:halign "end"
+		:space-evenly true
+		(label
+			:limit-width 2
+			:text "${current_locale}"
+		)
+	)
+)
+
